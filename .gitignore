@@ -24,6 +24,9 @@ pnpm-debug.log*
 *.sqlite
 *.sqlite3
 
+# archivo temporal para el cuerpo de las descripciones de PR (gh pr create --body-file)
+tmp-pr-body.md
+
 # macOS-specific files
 .DS_Store
 

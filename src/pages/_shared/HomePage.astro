@@ -1,6 +1,7 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getDictionary } from '../../i18n';
+import TerminalWindow from '../../components/ui/TerminalWindow.astro';
 
 const dict = getDictionary(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'es';
@@ -23,35 +24,26 @@ const menu = [
       {dict.home.tagline} <span class="text-accent">█</span>
     </p>
 
-    <div class="rounded border border-accent-dim bg-surface/90 shadow-lg shadow-black/40">
-      <div class="flex items-center gap-1.5 border-b border-accent-dim px-3 py-2">
-        <span class="h-2.5 w-2.5 rounded-full bg-accent-dim"></span>
-        <span class="h-2.5 w-2.5 rounded-full bg-accent-dim"></span>
-        <span class="h-2.5 w-2.5 rounded-full bg-accent-dim"></span>
-        <span class="ml-2 font-mono text-xs text-muted">dylan@portfolio:~$</span>
-      </div>
+    <TerminalWindow>
+      <p class="text-muted">{dict.home.bootLine1}</p>
+      <p class="text-muted">{dict.home.bootLine2}</p>
+      <p class="mb-5 text-accent">{dict.home.bootLine3}</p>
 
-      <div class="p-6 font-mono text-sm">
-        <p class="text-muted">{dict.home.bootLine1}</p>
-        <p class="text-muted">{dict.home.bootLine2}</p>
-        <p class="mb-5 text-accent">{dict.home.bootLine3}</p>
-
-        <nav aria-label={dict.home.menuLabel} data-menu class="flex flex-col gap-1">
-          {menu.map((item) => (
-            <a
-              href={getRelativeLocaleUrl(locale, item.slug)}
-              data-menu-item
-              class="group flex items-center gap-2 rounded px-2 py-1.5 text-muted outline-none hover:bg-bg hover:text-accent focus-visible:bg-bg focus-visible:text-accent"
-            >
-              <span class="text-accent-dim group-hover:text-accent group-focus-visible:text-accent">
-                [{item.key}]
-              </span>
-              <span>{item.label}</span>
-            </a>
-          ))}
-        </nav>
-      </div>
-    </div>
+      <nav aria-label={dict.home.menuLabel} data-menu class="flex flex-col gap-1">
+        {menu.map((item) => (
+          <a
+            href={getRelativeLocaleUrl(locale, item.slug)}
+            data-menu-item
+            class="group flex items-center gap-2 rounded px-2 py-1.5 text-muted outline-none hover:bg-bg hover:text-accent focus-visible:bg-bg focus-visible:text-accent"
+          >
+            <span class="text-accent-dim group-hover:text-accent group-focus-visible:text-accent">
+              [{item.key}]
+            </span>
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </nav>
+    </TerminalWindow>
   </div>
 </main>
 

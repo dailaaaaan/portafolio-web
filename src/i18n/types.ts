@@ -25,4 +25,7 @@ export interface Dictionary {
   placeholder: {
     message: string;
   };
+  common: {
+    backHome: string;
+  };
 }

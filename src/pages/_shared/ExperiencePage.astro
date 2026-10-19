@@ -1,0 +1,46 @@
+---
+import { getDictionary } from '../../i18n';
+import { getExperience } from '../../content/experience';
+import TerminalWindow from '../../components/ui/TerminalWindow.astro';
+import ExperienceEntry from '../../components/ui/ExperienceEntry.astro';
+import BackLink from '../../components/ui/BackLink.astro';
+
+const dict = getDictionary(Astro.currentLocale);
+const content = getExperience(Astro.currentLocale);
+---
+
+<main class="min-h-screen px-4 py-16">
+  <div class="mx-auto max-w-2xl">
+    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.experience}</h1>
+
+    <TerminalWindow promptLabel="cat experiencia.log">
+      <h2 class="mb-4 text-accent">{content.professionalHeading}</h2>
+      <ol class="mb-8 flex flex-col gap-5">
+        {content.professional.map((entry) => (
+          <ExperienceEntry
+            period={entry.period}
+            role={entry.role}
+            company={entry.company}
+            description={entry.description}
+          />
+        ))}
+      </ol>
+
+      <h2 class="mb-4 text-accent">{content.outsideItHeading}</h2>
+      <ol class="flex flex-col gap-5">
+        {content.outsideIt.map((entry) => (
+          <ExperienceEntry
+            period={entry.period}
+            role={entry.role}
+            company={entry.company}
+            description={entry.description}
+          />
+        ))}
+      </ol>
+    </TerminalWindow>
+
+    <div class="mt-6 text-center">
+      <BackLink />
+    </div>
+  </div>
+</main>

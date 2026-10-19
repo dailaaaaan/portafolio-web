@@ -42,8 +42,8 @@ mediante un Pull Request independiente. Estado actualizado a medida que se avanz
 | 4   | `feat/theme-toggle`                   | Selector de tema persistente (vanilla TS, sin flash)                                              | ✅ Fusionado              |
 | 5   | `feat/i18n-setup`                     | Routing i18n de Astro (ES/CA/EN), diccionarios, selector de idioma                                | ✅ Fusionado              |
 | 6   | `feat/matrix-background`              | Canvas de lluvia de código, respeta `prefers-reduced-motion`                                      | ✅ Fusionado              |
-| 7   | `feat/database-setup`                 | Drizzle + libSQL (local/Turso), esquema, migraciones, seed                                        | ⏳ Pendiente              |
-| 8   | `feat/navigation-terminal`            | Navegación estilo CLI + landing/hero + View Transitions                                           | ⏳ Pendiente              |
+| 7   | `feat/database-setup`                 | Drizzle + libSQL (local/Turso), esquema, migraciones, seed                                        | ✅ Fusionado              |
+| 8   | `feat/navigation-terminal`            | Navegación estilo CLI + landing/hero + View Transitions                                           | ✅ Fusionado              |
 | 9   | `feat/section-experience`             | Timeline de experiencia profesional                                                               | ⏳ Pendiente              |
 | 10  | `feat/section-cv`                     | Sección CV estructurada + descarga del PDF original                                               | ⏳ Pendiente              |
 | 11  | `feat/section-cover-letter`           | Sección carta de presentación                                                                     | ⏳ Pendiente              |

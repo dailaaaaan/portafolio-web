@@ -71,6 +71,15 @@ cuidado técnico y originalidad, no verse como una plantilla genérica.
 No se introduce ningún otro framework de UI (Vue, Svelte, etc.), ni CSS-in-JS, ni
 otro ORM, sin actualizar esta sección primero.
 
+**`npm audit` conocido**: a fecha del PR 8 hay 7 avisos (3 "high", 4 "moderate")
+en dependencias transitivas de `drizzle-kit` (esbuild, solo en su servidor de
+desarrollo interno) y de `@astrojs/vercel` (`path-to-regexp`, solo usado en
+tiempo de build para generar rutas, no sirve peticiones reales). Ninguno de los
+dos procesa input de usuarios en producción. `npm audit fix --force` los
+"arregla" degradando a versiones mucho mas antiguas de esos paquetes (peor que
+el problema), así que se dejan documentados aquí en vez de forzar el downgrade.
+Revisar de nuevo si `npm audit` reporta algo distinto en el futuro.
+
 ## 4. Estructura de carpetas
 
 ```
@@ -78,6 +87,11 @@ src/
   components/
     react/        -> islas React (ej. formulario de guestbook)
     ui/            -> componentes .astro reutilizables (nav, botones, cards)
+      TerminalWindow.astro -> "cromado" de ventana de terminal (3 puntos +
+        prompt) que envuelve el contenido de cada seccion; usarlo en vez de
+        repetir el marcado del bloque de terminal
+      BackLink.astro       -> enlace "volver al inicio" traducido; añadirlo
+        al final de cada pagina de seccion (no de la home)
   layouts/         -> BaseLayout.astro y layouts específicos de sección
   pages/
     [locale]/      -> rutas por idioma cuando aplique (ver sección i18n)
@@ -223,6 +237,12 @@ Ramas desde `main`, nombre `tipo/descripcion-corta`. Cada PR:
    `npm run check` / `lint` / `build` en verde.
 3. Se fusiona a `main` (merge commit o squash, a criterio del orquestador) antes
    de empezar el siguiente PR del plan.
+
+**Importante sobre `gh pr create` en `cmd.exe`**: pasar la descripción con
+`--body "texto con varias líneas"` se queda colgado en la consola de Windows
+(cmd.exe interpreta cada salto de línea como un Enter, dejando comillas sin
+cerrar). Usar siempre `--body-file` apuntando a un archivo (ej.
+`tmp-pr-body.md`, ya en `.gitignore`) en vez de `--body` con texto multilínea.
 
 Plan de PRs completo (mínimo 12, se definen 18): ver `README.md`, sección
 "Plan de desarrollo", que se mantiene sincronizada con el progreso real.

@@ -1,0 +1,14 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getDictionary } from '../../i18n';
+
+const locale = Astro.currentLocale ?? 'es';
+const dict = getDictionary(Astro.currentLocale);
+---
+
+<a
+  href={getRelativeLocaleUrl(locale, '')}
+  class="inline-block font-mono text-xs text-muted hover:text-accent"
+>
+  {dict.common.backHome}
+</a>

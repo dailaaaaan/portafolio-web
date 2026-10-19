@@ -26,5 +26,8 @@ export const es: Dictionary = {
   },
   placeholder: {
     message: 'Sección en construcción_'
+  },
+  common: {
+    backHome: '← Volver al inicio'
   }
 };
