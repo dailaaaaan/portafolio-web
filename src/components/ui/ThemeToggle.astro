@@ -1,14 +1,19 @@
 ---
+import { getDictionary } from '../../i18n';
+
+const dict = getDictionary(Astro.currentLocale);
 ---
 
 <button
   id="theme-toggle"
   type="button"
-  aria-label="Cambiar entre tema claro y oscuro"
+  aria-label={dict.theme.toggleLabel}
   aria-pressed="false"
+  data-label-dark={dict.theme.dark}
+  data-label-light={dict.theme.light}
   class="rounded border border-accent-dim px-2 py-1 font-mono text-xs text-muted transition-colors hover:text-accent"
 >
-  <span data-theme-label>theme --dark</span>
+  <span data-theme-label>{dict.theme.dark}</span>
 </button>
 
 <script>
@@ -22,7 +27,8 @@
 
   function render() {
     const theme = currentTheme();
-    if (label) label.textContent = `theme --${theme}`;
+    const text = theme === 'light' ? button?.dataset.labelLight : button?.dataset.labelDark;
+    if (label && text) label.textContent = text;
     button?.setAttribute('aria-pressed', String(theme === 'light'));
   }
 

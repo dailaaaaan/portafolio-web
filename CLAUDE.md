@@ -143,6 +143,13 @@ Principios de diseño (para evitar estética "genérica de IA"):
   `src/content/**` con un archivo por idioma, no mezclado en el diccionario de UI.
 - El selector de idioma conserva la sección actual al cambiar de idioma (no redirige
   siempre a home).
+- **Patrón de página por idioma**: cada página real se implementa una sola vez en
+  `src/pages/_shared/NombrePage.astro` (la carpeta `_shared` empieza por `_` para
+  que Astro no le asigne ruta propia), leyendo `Astro.currentLocale` para elegir
+  el diccionario. Después existen 3 archivos finos de ruta que solo importan y
+  renderizan ese componente: `src/pages/index.astro` (ES, sin prefijo),
+  `src/pages/ca/index.astro` y `src/pages/en/index.astro`. Así no se duplica el
+  contenido/markup, solo el archivo de ruta (ver ejemplo en `HomePage.astro`).
 
 ## 7. Base de datos
 

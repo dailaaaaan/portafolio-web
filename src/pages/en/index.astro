@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomePage from '../_shared/HomePage.astro';
+import { getDictionary } from '../../i18n';
+
+const dict = getDictionary(Astro.currentLocale);
+---
+
+<BaseLayout title={dict.site.title}>
+  <HomePage />
+</BaseLayout>

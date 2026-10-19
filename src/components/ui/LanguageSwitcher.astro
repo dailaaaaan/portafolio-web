@@ -1,0 +1,29 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+
+const current = Astro.currentLocale ?? 'es';
+
+// Astro.url.pathname incluye el prefijo de idioma actual (ej. "/ca/cv"); lo
+// quitamos para quedarnos con la ruta "neutra" antes de reconstruir el enlace
+// a cada idioma con getRelativeLocaleUrl.
+const pathWithoutLocale = Astro.url.pathname.replace(/^\/(ca|en)(\/|$)/, '/');
+const relPath = pathWithoutLocale === '/' ? '' : pathWithoutLocale.replace(/^\//, '');
+
+const locales = [
+  { code: 'es', label: 'ES' },
+  { code: 'ca', label: 'CA' },
+  { code: 'en', label: 'EN' }
+] as const;
+---
+
+<nav aria-label="Selector de idioma" class="flex gap-2 font-mono text-xs text-muted">
+  {locales.map((locale) => (
+    <a
+      href={getRelativeLocaleUrl(locale.code, relPath)}
+      class={current === locale.code ? 'text-accent' : 'hover:text-accent'}
+      aria-current={current === locale.code ? 'page' : undefined}
+    >
+      {locale.label}
+    </a>
+  ))}
+</nav>
