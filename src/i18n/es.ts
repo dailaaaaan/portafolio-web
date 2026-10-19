@@ -17,7 +17,14 @@ export const es: Dictionary = {
     toggleLabel: 'Cambiar entre tema claro y oscuro'
   },
   home: {
-    previewLabel: 'design_tokens --preview',
-    tagline: 'desarrollador full-stack_'
+    heading: 'Dylan Andreu Fiallos',
+    tagline: 'desarrollador full-stack_',
+    bootLine1: 'Iniciando sesión...',
+    bootLine2: 'Cargando perfil...',
+    bootLine3: 'Bienvenido, Dylan_',
+    menuLabel: 'Menú principal'
+  },
+  placeholder: {
+    message: 'Sección en construcción_'
   }
 };

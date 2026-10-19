@@ -125,8 +125,12 @@ Principios de diseño (para evitar estética "genérica de IA"):
 
 - Nada de hero centrado + blob de degradado + botón redondeado con sombra.
 - Navegación con metáfora de terminal/CLI, no un navbar convencional.
-- Transiciones de sección con `<ClientRouter />` + efecto de "decodificación"
-  (glitch) en textos, no fundidos genéricos.
+- Transiciones de sección con `<ClientRouter />` (animado desde el PR
+  `feat/navigation-terminal`, con `transition:persist` en el canvas de lluvia
+  de codigo y en los controles de tema/idioma para que no se reinicien al
+  navegar). El efecto de "decodificacion" (glitch) en los textos durante la
+  transicion es trabajo pendiente de `feat/page-transitions-polish`, no de
+  este PR inicial.
 - Layout asimétrico; evitar grillas de 3 columnas simétricas para listar contenido.
 - El canvas de lluvia de código vive detrás de todo el contenido (z-index bajo,
   `pointer-events: none`), y debe desactivarse/congelarse si
@@ -150,6 +154,19 @@ Principios de diseño (para evitar estética "genérica de IA"):
   renderizan ese componente: `src/pages/index.astro` (ES, sin prefijo),
   `src/pages/ca/index.astro` y `src/pages/en/index.astro`. Así no se duplica el
   contenido/markup, solo el archivo de ruta (ver ejemplo en `HomePage.astro`).
+- **Los slugs de URL no se traducen**: `/cv`, `/carta-presentacion`,
+  `/experiencia`, `/opiniones`, `/contacto` son los mismos en los 3 idiomas
+  (solo con el prefijo `/ca/` o `/en/` delante). Lo que cambia por idioma es
+  unicamente la etiqueta visible en el menu (`dict.nav.*`), no la ruta. Esto
+  evita multiplicar la complejidad de routing; si en el futuro se quiere URLs
+  traducidas, revisar antes el impacto en todos los enlaces internos y en SEO
+  (PR `feat/seo-metadata`).
+- **Páginas placeholder**: mientras una sección de contenido aún no tiene su
+  PR propio, su ruta existe igualmente (para que el menú no enlace a 404) y
+  renderiza `src/pages/_shared/PlaceholderPage.astro` con un mensaje de
+  "en construcción". Cuando llega el PR real de esa sección (ej.
+  `feat/section-cv`), se sustituye `<PlaceholderPage section="cv" />` por el
+  componente definitivo en los 3 archivos de ruta de esa sección.
 
 ## 7. Base de datos
 

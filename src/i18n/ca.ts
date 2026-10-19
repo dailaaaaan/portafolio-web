@@ -17,7 +17,14 @@ export const ca: Dictionary = {
     toggleLabel: 'Canvia entre tema clar i fosc'
   },
   home: {
-    previewLabel: 'design_tokens --preview',
-    tagline: 'desenvolupador full-stack_'
+    heading: 'Dylan Andreu Fiallos',
+    tagline: 'desenvolupador full-stack_',
+    bootLine1: 'Iniciant sessió...',
+    bootLine2: 'Carregant perfil...',
+    bootLine3: 'Benvingut, Dylan_',
+    menuLabel: 'Menú principal'
+  },
+  placeholder: {
+    message: 'Secció en construcció_'
   }
 };
