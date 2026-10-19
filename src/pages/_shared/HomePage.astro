@@ -1,0 +1,32 @@
+---
+import { getDictionary } from '../../i18n';
+
+const dict = getDictionary(Astro.currentLocale);
+
+const swatches = [
+  { name: 'bg', class: 'bg-bg' },
+  { name: 'surface', class: 'bg-surface' },
+  { name: 'fg', class: 'bg-fg' },
+  { name: 'accent', class: 'bg-accent' },
+  { name: 'accent-dim', class: 'bg-accent-dim' },
+  { name: 'muted', class: 'bg-muted' }
+];
+---
+
+<main class="min-h-screen bg-bg px-6 py-16 text-fg">
+  <p class="mb-8 font-mono text-sm text-accent">{dict.home.previewLabel}</p>
+
+  <h1 class="mb-2 text-2xl font-bold">Dylan Andreu Fiallos</h1>
+  <p class="mb-10 text-muted">
+    {dict.home.tagline} <span class="text-accent">█</span>
+  </p>
+
+  <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
+    {swatches.map((s) => (
+      <div class="rounded border border-accent-dim p-4">
+        <div class={`mb-3 h-12 w-full rounded ${s.class} border border-accent-dim`} />
+        <p class="font-mono text-xs text-muted">--color-{s.name}</p>
+      </div>
+    ))}
+  </div>
+</main>
