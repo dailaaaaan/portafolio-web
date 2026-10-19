@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import PlaceholderPage from '../_shared/PlaceholderPage.astro';
+import ExperiencePage from '../_shared/ExperiencePage.astro';
 import { getDictionary } from '../../i18n';
 
 const dict = getDictionary(Astro.currentLocale);
 ---
 
 <BaseLayout title={`${dict.nav.experience} — ${dict.site.title}`}>
-  <PlaceholderPage section="experience" />
+  <ExperiencePage />
 </BaseLayout>
