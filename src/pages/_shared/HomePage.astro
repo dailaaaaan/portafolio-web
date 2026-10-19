@@ -1,32 +1,78 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getDictionary } from '../../i18n';
 
 const dict = getDictionary(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'es';
 
-const swatches = [
-  { name: 'bg', class: 'bg-bg' },
-  { name: 'surface', class: 'bg-surface' },
-  { name: 'fg', class: 'bg-fg' },
-  { name: 'accent', class: 'bg-accent' },
-  { name: 'accent-dim', class: 'bg-accent-dim' },
-  { name: 'muted', class: 'bg-muted' }
+// Los slugs de URL NO se traducen a proposito (ver CLAUDE.md seccion 6): solo
+// cambia la etiqueta visible, para no multiplicar la complejidad de rutas.
+const menu = [
+  { key: '1', slug: 'cv', label: dict.nav.cv },
+  { key: '2', slug: 'carta-presentacion', label: dict.nav.coverLetter },
+  { key: '3', slug: 'experiencia', label: dict.nav.experience },
+  { key: '4', slug: 'opiniones', label: dict.nav.testimonials },
+  { key: '5', slug: 'contacto', label: dict.nav.contact }
 ];
 ---
 
-<main class="relative min-h-screen px-6 py-16 text-fg">
-  <p class="mb-8 font-mono text-sm text-accent">{dict.home.previewLabel}</p>
+<main class="relative flex min-h-screen items-center justify-center px-4 py-16">
+  <div class="w-full max-w-md">
+    <h1 class="mb-1 text-center text-2xl font-bold text-fg">{dict.home.heading}</h1>
+    <p class="mb-8 text-center text-sm text-muted">
+      {dict.home.tagline} <span class="text-accent">█</span>
+    </p>
 
-  <h1 class="mb-2 text-2xl font-bold">Dylan Andreu Fiallos</h1>
-  <p class="mb-10 text-muted">
-    {dict.home.tagline} <span class="text-accent">█</span>
-  </p>
-
-  <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
-    {swatches.map((s) => (
-      <div class="rounded border border-accent-dim p-4">
-        <div class={`mb-3 h-12 w-full rounded ${s.class} border border-accent-dim`} />
-        <p class="font-mono text-xs text-muted">--color-{s.name}</p>
+    <div class="rounded border border-accent-dim bg-surface/90 shadow-lg shadow-black/40">
+      <div class="flex items-center gap-1.5 border-b border-accent-dim px-3 py-2">
+        <span class="h-2.5 w-2.5 rounded-full bg-accent-dim"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-accent-dim"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-accent-dim"></span>
+        <span class="ml-2 font-mono text-xs text-muted">dylan@portfolio:~$</span>
       </div>
-    ))}
+
+      <div class="p-6 font-mono text-sm">
+        <p class="text-muted">{dict.home.bootLine1}</p>
+        <p class="text-muted">{dict.home.bootLine2}</p>
+        <p class="mb-5 text-accent">{dict.home.bootLine3}</p>
+
+        <nav aria-label={dict.home.menuLabel} data-menu class="flex flex-col gap-1">
+          {menu.map((item) => (
+            <a
+              href={getRelativeLocaleUrl(locale, item.slug)}
+              data-menu-item
+              class="group flex items-center gap-2 rounded px-2 py-1.5 text-muted outline-none hover:bg-bg hover:text-accent focus-visible:bg-bg focus-visible:text-accent"
+            >
+              <span class="text-accent-dim group-hover:text-accent group-focus-visible:text-accent">
+                [{item.key}]
+              </span>
+              <span>{item.label}</span>
+            </a>
+          ))}
+        </nav>
+      </div>
+    </div>
   </div>
 </main>
+
+<script>
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+
+  if (menu) {
+    const items = Array.from(menu.querySelectorAll<HTMLAnchorElement>('a[data-menu-item]'));
+
+    menu.addEventListener('keydown', (event: KeyboardEvent) => {
+      const active = document.activeElement;
+      const currentIndex = items.findIndex((item) => item === active);
+      if (currentIndex === -1) return;
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        items[(currentIndex + 1) % items.length].focus();
+      } else if (event.key === 'ArrowUp') {
+        event.preventDefault();
+        items[(currentIndex - 1 + items.length) % items.length].focus();
+      }
+    });
+  }
+</script>

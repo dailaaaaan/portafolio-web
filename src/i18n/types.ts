@@ -15,7 +15,14 @@ export interface Dictionary {
     toggleLabel: string;
   };
   home: {
-    previewLabel: string;
+    heading: string;
     tagline: string;
+    bootLine1: string;
+    bootLine2: string;
+    bootLine3: string;
+    menuLabel: string;
+  };
+  placeholder: {
+    message: string;
   };
 }
