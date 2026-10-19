@@ -19,6 +19,16 @@
   --font-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
 }
 
+/*
+ * Mismos colores que arriba, pero como tripletas "R G B" sin envolver, para
+ * que el canvas de la lluvia de codigo (MatrixRain.astro) pueda componer
+ * rgba() con transparencia en JS sin tener que parsear un hexadecimal.
+ */
+:root {
+  --color-bg-rgb: 10 14 10;
+  --color-accent-rgb: 57 255 106;
+}
+
 :root[data-theme='light'] {
   --color-bg: #f2f5f1;
   --color-surface: #e4ebe3;
@@ -26,6 +36,9 @@
   --color-accent: #1a7a33;
   --color-accent-dim: #4f9a63;
   --color-muted: #5c6b5f;
+
+  --color-bg-rgb: 242 245 241;
+  --color-accent-rgb: 26 122 51;
 }
 
 @layer base {
