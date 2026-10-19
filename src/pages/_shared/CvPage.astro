@@ -1,0 +1,68 @@
+---
+import { getDictionary } from '../../i18n';
+import { getCv } from '../../content/cv';
+import TerminalWindow from '../../components/ui/TerminalWindow.astro';
+import BackLink from '../../components/ui/BackLink.astro';
+
+const dict = getDictionary(Astro.currentLocale);
+const cv = getCv(Astro.currentLocale);
+---
+
+<main class="min-h-screen px-4 py-16">
+  <div class="mx-auto max-w-2xl">
+    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.cv}</h1>
+
+    <TerminalWindow promptLabel="cat cv.json">
+      <section class="mb-6">
+        <h2 class="mb-2 text-accent">{cv.objectiveHeading}</h2>
+        <p class="text-sm text-muted">{cv.objective}</p>
+      </section>
+
+      <section class="mb-6">
+        <h2 class="mb-3 text-accent">{cv.skillsHeading}</h2>
+        <div class="grid gap-5 sm:grid-cols-3">
+          {cv.skills.map((category) => (
+            <div>
+              <p class="mb-2 text-sm font-bold text-fg">{category.heading}</p>
+              <ul class="flex flex-col gap-1">
+                {category.items.map((item) => (
+                  <li class="text-xs text-muted">- {item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="mb-6">
+        <h2 class="mb-3 text-accent">{cv.educationHeading}</h2>
+        <ul class="flex flex-col gap-3">
+          {cv.education.map((entry) => (
+            <li>
+              <p class="text-xs text-muted">{entry.period}</p>
+              <p class="text-sm font-bold text-fg">{entry.institution}</p>
+              <p class="text-sm text-muted">{entry.program}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mb-6">
+        <h2 class="mb-2 text-accent">{cv.languagesHeading}</h2>
+        <p class="text-sm text-muted">{cv.languages.join(' · ')}</p>
+      </section>
+
+      <a
+        href={cv.downloadHref}
+        download
+        class="inline-block rounded border border-accent-dim px-3 py-1.5 text-sm text-accent hover:bg-bg"
+      >
+        ↓ {cv.downloadLabel}
+      </a>
+    </TerminalWindow>
+
+    <div class="mt-6 text-center">
+      <BackLink />
+    </div>
+  </div>
+</main>
