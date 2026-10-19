@@ -8,13 +8,19 @@ instrucción puntual gana, pero debe actualizarse este archivo para reflejar el 
 
 Portafolio web personal de Dylan Andreu Fiallos Sanchez (desarrollador Full Stack
 junior). Landing page con estética "Matrix" (terminal, monoespaciada, fondo negro con
-verde, lluvia de código) que da acceso a 4 secciones:
+verde, lluvia de código) que da acceso a 5 secciones:
 
 1. `CV` — currículum estructurado, con descarga del PDF original.
 2. `Carta de presentación`.
 3. `Experiencias` — timeline de experiencia profesional.
 4. `Opiniones` — testimonios de excompañeros (ficticios, redactados para este
    proyecto) + un guestbook donde cualquier visitante puede dejar su propia opinión.
+5. `Contacto` — enlaces directos a redes/contacto (LinkedIn, GitHub, email,
+   teléfono). **Dato pendiente del usuario**: antes de construir el PR
+   `feat/section-contact` hay que pedirle a Dylan que confirme/complete esta
+   información (ya se dispone de los datos del CV como base: email, teléfono,
+   LinkedIn y GitHub, pero debe confirmarse si quiere añadir algo más o
+   cambiarlos).
 
 Público objetivo: reclutadores y responsables técnicos evaluando a Dylan para
 puestos de desarrollador Full Stack junior / soporte IT. El sitio debe transmitir
@@ -81,6 +87,7 @@ src/
     cv/            -> datos estructurados del CV por idioma (ts/json)
     experience/    -> datos del timeline de experiencia
     testimonials/  -> datos semilla de opiniones ficticias
+    contact/       -> enlaces de contacto (email, telefono, LinkedIn, GitHub)
   i18n/
     es.ts, ca.ts, en.ts  -> diccionarios de UI (strings de interfaz, no contenido largo)
   lib/
@@ -187,7 +194,7 @@ Ramas desde `main`, nombre `tipo/descripcion-corta`. Cada PR:
 3. Se fusiona a `main` (merge commit o squash, a criterio del orquestador) antes
    de empezar el siguiente PR del plan.
 
-Plan de PRs completo (mínimo 12, se definen 16): ver `README.md`, sección
+Plan de PRs completo (mínimo 12, se definen 17): ver `README.md`, sección
 "Plan de desarrollo", que se mantiene sincronizada con el progreso real.
 
 ## 10. Presupuesto de rendimiento
