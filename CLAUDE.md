@@ -179,9 +179,15 @@ Principios de diseño (para evitar estética "genérica de IA"):
 
 ## 8. Accesibilidad
 
-- Contraste verificado AA mínimo entre `--color-fg`/`--color-bg` en ambos temas
-  pese a la estética Matrix (ajustar luminosidad del verde si hace falta, no
-  sacrificar legibilidad por estética).
+- Contraste: no basta con cumplir el minimo AA (4.5:1) por los pelos — el
+  usuario reporto explicitamente que, aun pasando ese minimo, texto secundario
+  (`--color-muted`) y bordes de botones (`--color-accent-dim`) no se
+  distinguian bien del fondo. A partir de ahora, todo texto y todo elemento
+  interactivo (botones, bordes de componentes clicables) debe apuntar a un
+  contraste claramente por encima del minimo, no solo al limite. Pendiente
+  una pasada dedicada en `fix/contrast-pass` (ver README), pero cualquier PR
+  nuevo que añada texto o controles debe ya intentar cumplir esto desde el
+  principio en vez de dejarlo todo para esa pasada final.
 - Toda la navegación operable por teclado (incluida la navegación tipo
   terminal).
 - `prefers-reduced-motion: reduce` desactiva o reduce drásticamente: lluvia de
@@ -201,7 +207,7 @@ Ramas desde `main`, nombre `tipo/descripcion-corta`. Cada PR:
 3. Se fusiona a `main` (merge commit o squash, a criterio del orquestador) antes
    de empezar el siguiente PR del plan.
 
-Plan de PRs completo (mínimo 12, se definen 17): ver `README.md`, sección
+Plan de PRs completo (mínimo 12, se definen 18): ver `README.md`, sección
 "Plan de desarrollo", que se mantiene sincronizada con el progreso real.
 
 ## 10. Presupuesto de rendimiento

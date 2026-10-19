@@ -21,8 +21,13 @@
 
     let columns = 0;
     let drops: number[] = [];
-    let intervalId: ReturnType<typeof window.setInterval> | undefined;
-    let resizeTimeoutId: ReturnType<typeof window.setTimeout> | undefined;
+    // Tipado explicito como "number": en el navegador window.setInterval /
+    // window.setTimeout siempre devuelven number (a diferencia de Node, que
+    // devuelve un objeto Timeout). Ahora que el proyecto tambien tiene
+    // @types/node (para el script de semillas), la inferencia automatica
+    // podia confundirse con el tipo de Node.
+    let intervalId: number | undefined;
+    let resizeTimeoutId: number | undefined;
 
     function resize() {
       canvasEl.width = window.innerWidth;

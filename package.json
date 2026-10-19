@@ -13,21 +13,28 @@
     "check": "astro check",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "node src/lib/db/seed.ts"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.0",
     "@astrojs/vercel": "^11.0.16",
     "@fontsource/jetbrains-mono": "^5.3.0",
+    "@libsql/client": "^0.18.0",
     "astro": "^7.4.1",
+    "drizzle-orm": "^0.45.4",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.11",
     "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "drizzle-kit": "^0.31.11",
     "eslint": "^10.13.0",
     "eslint-plugin-astro": "^3.2.1",
     "prettier": "^3.9.10",

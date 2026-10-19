@@ -37,11 +37,11 @@ mediante un Pull Request independiente. Estado actualizado a medida que se avanz
 | #   | Rama                                  | Contenido                                                                                         | Estado                    |
 | --- | ------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------- |
 | 1   | `chore/project-setup`                 | Scaffold Astro + TypeScript strict + Tailwind v4 + React + adapter Vercel + ESLint/Prettier       | ✅ Fusionado              |
-| 2   | `docs/claude-md`                      | Limpieza de archivos accidentales + `CLAUDE.md`/`README.md` actualizados (añade sección Contacto) | ⏳ En curso               |
-| 3   | `feat/design-tokens`                  | Paleta Matrix, tipografías monoespaciadas, tokens claro/oscuro                                    | ⏳ Pendiente              |
-| 4   | `feat/theme-toggle`                   | Selector de tema persistente (vanilla TS, sin flash)                                              | ⏳ Pendiente              |
-| 5   | `feat/i18n-setup`                     | Routing i18n de Astro (ES/CA/EN), diccionarios, selector de idioma                                | ⏳ Pendiente              |
-| 6   | `feat/matrix-background`              | Canvas de lluvia de código, respeta `prefers-reduced-motion`                                      | ⏳ Pendiente              |
+| 2   | `docs/claude-md`                      | Limpieza de archivos accidentales + `CLAUDE.md`/`README.md` actualizados (añade sección Contacto) | ✅ Fusionado              |
+| 3   | `feat/design-tokens`                  | Paleta Matrix, tipografías monoespaciadas, tokens claro/oscuro                                    | ✅ Fusionado              |
+| 4   | `feat/theme-toggle`                   | Selector de tema persistente (vanilla TS, sin flash)                                              | ✅ Fusionado              |
+| 5   | `feat/i18n-setup`                     | Routing i18n de Astro (ES/CA/EN), diccionarios, selector de idioma                                | ✅ Fusionado              |
+| 6   | `feat/matrix-background`              | Canvas de lluvia de código, respeta `prefers-reduced-motion`                                      | ✅ Fusionado              |
 | 7   | `feat/database-setup`                 | Drizzle + libSQL (local/Turso), esquema, migraciones, seed                                        | ⏳ Pendiente              |
 | 8   | `feat/navigation-terminal`            | Navegación estilo CLI + landing/hero + View Transitions                                           | ⏳ Pendiente              |
 | 9   | `feat/section-experience`             | Timeline de experiencia profesional                                                               | ⏳ Pendiente              |
@@ -52,7 +52,8 @@ mediante un Pull Request independiente. Estado actualizado a medida que se avanz
 | 14  | `feat/page-transitions-polish`        | Glitch effects, microinteracciones, pulido de transiciones                                        | ⏳ Pendiente              |
 | 15  | `feat/accessibility-responsive`       | Accesibilidad + mobile-first                                                                      | ⏳ Pendiente              |
 | 16  | `feat/seo-metadata`                   | SEO, favicon, Open Graph, sitemap, robots.txt                                                     | ⏳ Pendiente              |
-| 17  | `chore/deploy-config`                 | Config de despliegue (Vercel + Turso), variables de entorno                                       | ⏳ Pendiente              |
+| 17  | `fix/contrast-pass`                   | Sube el contraste entre texto/botones y el fondo en ambos temas (pedido explícito del usuario)    | ⏳ Pendiente              |
+| 18  | `chore/deploy-config`                 | Config de despliegue (Vercel + Turso), variables de entorno                                       | ⏳ Pendiente              |
 
 Cada PR incluye en su descripción: qué cambia, por qué, cómo probarlo localmente, y
 un checklist de `npm run check` / `lint` / `build` en verde.
