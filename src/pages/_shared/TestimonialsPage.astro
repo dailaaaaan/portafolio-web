@@ -1,0 +1,63 @@
+---
+import { and, desc, eq } from 'drizzle-orm';
+import { db } from '../../lib/db/client.ts';
+import { testimonials } from '../../lib/db/schema.ts';
+import { getDictionary } from '../../i18n';
+import { getTestimonialsContent } from '../../content/testimonials';
+import TerminalWindow from '../../components/ui/TerminalWindow.astro';
+import BackLink from '../../components/ui/BackLink.astro';
+import GuestbookForm from '../../components/react/GuestbookForm.tsx';
+
+const dict = getDictionary(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'es';
+const content = getTestimonialsContent(Astro.currentLocale);
+
+const approved = await db
+  .select()
+  .from(testimonials)
+  .where(and(eq(testimonials.approved, true), eq(testimonials.locale, locale)))
+  .orderBy(desc(testimonials.isSeed), desc(testimonials.createdAt));
+---
+
+<main class="min-h-screen px-4 py-16">
+  <div class="mx-auto max-w-2xl">
+    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.testimonials}</h1>
+
+    <TerminalWindow promptLabel="cat opiniones.log">
+      {approved.length === 0 ? (
+        <p class="mb-6 text-sm text-muted">{content.emptyMessage}</p>
+      ) : (
+        <ul class="mb-8 flex flex-col gap-5">
+          {approved.map((t) => (
+            <li class="border-l-2 border-accent-dim pl-4">
+              <p class="text-sm font-bold text-fg">{t.name}</p>
+              <p class="mb-1 text-xs text-accent-dim">
+                {t.role ? `${t.role} — ${t.relationship}` : t.relationship}
+              </p>
+              <p class="text-sm text-muted">{t.message}</p>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <h2 class="mb-3 text-accent">{content.formHeading}</h2>
+      <GuestbookForm
+        client:load
+        locale={locale}
+        labels={{
+          nameLabel: content.nameLabel,
+          relationshipLabel: content.relationshipLabel,
+          messageLabel: content.messageLabel,
+          submitLabel: content.submitLabel,
+          successMessage: content.successMessage,
+          errorMessage: content.errorMessage,
+          rateLimitMessage: content.rateLimitMessage
+        }}
+      />
+    </TerminalWindow>
+
+    <div class="mt-6 text-center">
+      <BackLink />
+    </div>
+  </div>
+</main>
