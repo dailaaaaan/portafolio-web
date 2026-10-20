@@ -19,7 +19,9 @@ const menu = [
 
 <main class="relative flex min-h-screen items-center justify-center px-4 py-16">
   <div class="w-full max-w-md">
-    <h1 class="mb-1 text-center text-2xl font-bold text-fg">{dict.home.heading}</h1>
+    <h1 data-scramble class="mb-1 text-center text-2xl font-bold text-fg">
+      {dict.home.heading}
+    </h1>
     <p class="mb-8 text-center text-sm text-muted">
       {dict.home.tagline} <span class="text-accent">█</span>
     </p>
@@ -34,7 +36,7 @@ const menu = [
           <a
             href={getRelativeLocaleUrl(locale, item.slug)}
             data-menu-item
-            class="group flex items-center gap-2 rounded px-2 py-1.5 text-muted outline-none hover:bg-bg hover:text-accent focus-visible:bg-bg focus-visible:text-accent"
+            class="group flex items-center gap-2 rounded px-2 py-1.5 text-muted outline-none transition duration-150 hover:bg-bg hover:text-accent focus-visible:bg-bg focus-visible:text-accent active:scale-[0.98]"
           >
             <span class="text-accent-dim group-hover:text-accent group-focus-visible:text-accent">
               [{item.key}]

@@ -139,12 +139,27 @@ Principios de diseño (para evitar estética "genérica de IA"):
 
 - Nada de hero centrado + blob de degradado + botón redondeado con sombra.
 - Navegación con metáfora de terminal/CLI, no un navbar convencional.
-- Transiciones de sección con `<ClientRouter />` (animado desde el PR
-  `feat/navigation-terminal`, con `transition:persist` en el canvas de lluvia
-  de codigo y en los controles de tema/idioma para que no se reinicien al
-  navegar). El efecto de "decodificacion" (glitch) en los textos durante la
-  transicion es trabajo pendiente de `feat/page-transitions-polish`, no de
-  este PR inicial.
+- Transiciones de sección con `<ClientRouter />` (desde `feat/navigation-terminal`,
+  con `transition:persist` en el canvas de lluvia de codigo y en los
+  controles de tema/idioma para que no se reinicien al navegar). Desde
+  `feat/page-transitions-polish`:
+  - La transicion entre paginas usa una animacion "glitch" propia
+    (`src/lib/transitions.ts` + `@keyframes glitch-out/glitch-in` en
+    `global.css`) en vez del crossfade por defecto de Astro.
+  - Cada `<h1>` de pagina lleva `data-scramble`: al cargar (carga inicial o
+    tras una transicion), `src/components/ui/ScrambleHeadings.astro`
+    "decodifica" el texto desde caracteres aleatorios hasta el texto real.
+    Escucha el evento `astro:page-load` (se dispara en cada navegacion de
+    `<ClientRouter />`), montado una sola vez en `BaseLayout.astro`.
+  - Ambos efectos se desactivan automaticamente con
+    `prefers-reduced-motion: reduce` (Astro ya inyecta esa media query
+    globalmente para toda `transition:animate`, no hace falta logica extra).
+- Microinteracciones: todo elemento clicable (botones, enlaces del menu,
+  enlaces de contacto) lleva `transition` (o `transition-colors` si no tiene
+  efecto de escala) + `duration-150`; los que son claramente "botones"
+  (toggle de tema, descargar CV/carta, enviar opinion, items del menu)
+  anaden ademas `active:scale-95` o `active:scale-[0.98]` como feedback
+  táctil al pulsar.
 - Layout asimétrico; evitar grillas de 3 columnas simétricas para listar contenido.
 - El canvas de lluvia de código vive detrás de todo el contenido (z-index bajo,
   `pointer-events: none`), y debe desactivarse/congelarse si

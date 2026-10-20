@@ -4,6 +4,8 @@ import ClientRouter from 'astro/components/ClientRouter.astro';
 import ThemeToggle from '../components/ui/ThemeToggle.astro';
 import LanguageSwitcher from '../components/ui/LanguageSwitcher.astro';
 import MatrixRain from '../components/ui/MatrixRain.astro';
+import ScrambleHeadings from '../components/ui/ScrambleHeadings.astro';
+import { glitchTransition } from '../lib/transitions.ts';
 
 interface Props {
   title: string;
@@ -36,6 +38,9 @@ const { title } = Astro.props;
       <LanguageSwitcher />
       <ThemeToggle />
     </div>
-    <slot />
+    <ScrambleHeadings transition:persist="scramble-headings" />
+    <div transition:animate={glitchTransition}>
+      <slot />
+    </div>
   </body>
 </html>

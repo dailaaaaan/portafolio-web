@@ -21,7 +21,9 @@ const approved = await db
 
 <main class="min-h-screen px-4 py-16">
   <div class="mx-auto max-w-2xl">
-    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.testimonials}</h1>
+    <h1 data-scramble class="mb-6 text-center text-2xl font-bold text-fg">
+      ./{dict.nav.testimonials}
+    </h1>
 
     <TerminalWindow promptLabel="cat opiniones.log">
       {approved.length === 0 ? (

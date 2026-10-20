@@ -10,7 +10,9 @@ const letter = getCoverLetter(Astro.currentLocale);
 
 <main class="min-h-screen px-4 py-16">
   <div class="mx-auto max-w-2xl">
-    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.coverLetter}</h1>
+    <h1 data-scramble class="mb-6 text-center text-2xl font-bold text-fg">
+      ./{dict.nav.coverLetter}
+    </h1>
 
     <TerminalWindow promptLabel="cat carta.txt">
       <p class="mb-4 text-fg">{letter.greeting}</p>
@@ -27,7 +29,7 @@ const letter = getCoverLetter(Astro.currentLocale);
       <a
         href={letter.downloadHref}
         download
-        class="mt-6 inline-block rounded border border-accent-dim px-3 py-1.5 text-sm text-accent hover:bg-bg"
+        class="mt-6 inline-block rounded border border-accent-dim px-3 py-1.5 text-sm text-accent transition duration-150 hover:bg-bg active:scale-[0.98]"
       >
         ↓ {letter.downloadLabel}
       </a>
