@@ -129,9 +129,17 @@ async function seed() {
   console.log(`Seed completado: ${rows.length} testimonios insertados.`);
 }
 
+// No se llama a process.exit(): con Turso (HTTP/WS) cerrar la conexion es
+// async a nivel de libuv, y forzar la salida justo despues provoca un
+// "Assertion failed" en Windows (no afecta a los datos, que ya se guardaron,
+// pero conviene salir limpio). Se deja que Node termine solo una vez que
+// close() libera el handle y no queda nada mas pendiente en el event loop.
 seed()
-  .then(() => process.exit(0))
+  .then(() => {
+    db.$client.close();
+  })
   .catch((error: unknown) => {
     console.error('Error al sembrar la base de datos:', error);
-    process.exit(1);
+    db.$client.close();
+    process.exitCode = 1;
   });

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portafolio-web.vercel.app/sitemap-index.xml
+Sitemap: https://portafolio-web-nine-bay.vercel.app/sitemap-index.xml

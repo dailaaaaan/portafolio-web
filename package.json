@@ -17,8 +17,8 @@
     "format:check": "prettier --check .",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:seed": "node src/lib/db/seed.ts",
-    "db:approve": "node src/lib/db/approve.ts"
+    "db:seed": "node --env-file-if-exists=.env src/lib/db/seed.ts",
+    "db:approve": "node --env-file-if-exists=.env src/lib/db/approve.ts"
   },
   "dependencies": {
     "@astrojs/react": "^7.1.0",
