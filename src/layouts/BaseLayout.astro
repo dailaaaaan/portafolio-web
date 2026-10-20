@@ -20,10 +20,27 @@ const dict = getDictionary(Astro.currentLocale);
   <head>
     <script is:inline>
       (function () {
-        const stored = localStorage.getItem('theme');
-        if (stored === 'light') {
-          document.documentElement.dataset.theme = 'light';
+        function applyTheme(doc) {
+          const stored = localStorage.getItem('theme');
+          if (stored === 'light') {
+            doc.documentElement.dataset.theme = 'light';
+          } else {
+            delete doc.documentElement.dataset.theme;
+          }
         }
+
+        // Aplica el tema guardado antes del primer pintado (evita el flash).
+        applyTheme(document);
+
+        // <ClientRouter /> trae el HTML de la pagina siguiente SIN saber nada
+        // de localStorage, y lo intercambia por el actual: sin este listener,
+        // el tema claro se "olvidaba" al navegar a otra seccion porque el
+        // <html> nuevo nunca llevaba data-theme="light". astro:before-swap
+        // da acceso al documento nuevo justo antes de intercambiarlo, asi que
+        // aplicamos el tema ahi tambien, sin parpadeo.
+        document.addEventListener('astro:before-swap', (event) => {
+          applyTheme(event.newDocument);
+        });
       })();
     </script>
     <meta charset="utf-8" />
