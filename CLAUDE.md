@@ -226,6 +226,19 @@ Principios de diseño (para evitar estética "genérica de IA"):
   `TURSO_AUTH_TOKEN`); si no, usa `file:local.db` para desarrollo local. Usa
   `process.env`, no `import.meta.env` (este archivo tambien lo importan los
   scripts de Node en `src/lib/db/*.ts`, que no pasan por Vite).
+- `.env` local (nunca se sube a git) con `TURSO_DATABASE_URL`/`TURSO_AUTH_TOKEN`
+  para apuntar los scripts a produccion en vez de `local.db`. `npm run dev`
+  lo carga automaticamente (Astro/Vite ya lee `.env` hacia `process.env`).
+  Los scripts sueltos (`db:seed`, `db:approve`) NO pasan por Vite, asi que
+  llevan `node --env-file-if-exists=.env` en su definicion de `package.json`
+  para leerlo tambien (confirmado con una prueba real: sin ese flag, se
+  ignoraba el `.env` en silencio y caia al fallback de `local.db`).
+- `seed.ts`/`approve.ts` cierran la conexion con `db.$client.close()` al
+  terminar y dejan que Node salga solo (sin `process.exit()`): contra Turso
+  (HTTP/WS), forzar la salida justo despues de `close()` provoca un
+  "Assertion failed" de libuv en Windows (el handle aun no habia terminado
+  de cerrarse a nivel nativo). No afecta a los datos, pero conviene salir
+  limpio.
 - Migraciones versionadas con `drizzle-kit`, carpeta `drizzle/` incluida en git
   (las migraciones sí se versionan; el archivo `local.db` no).
 - Endpoint `POST /api/testimonials` (`src/pages/api/testimonials.ts`, uno
@@ -292,12 +305,12 @@ planificado, `fix/theme-persist-on-navigation`): ver `README.md`, sección
 
 ## 10. SEO
 
-- `site` en `astro.config.mjs` apunta a un dominio placeholder
-  (`https://portafolio-web.vercel.app`) — **`chore/deploy-config` debe
-  actualizarlo** a la URL real una vez desplegado, porque de el dependen el
-  sitemap, las URLs canonicas, `og:url` y las `hreflang`. `public/robots.txt`
-  tiene la URL del sitemap hardcodeada con el mismo placeholder, actualizar
-  ahi tambien.
+- `site` en `astro.config.mjs` apunta a la URL real de produccion
+  (`https://portafolio-web-nine-bay.vercel.app`, actualizado en
+  `chore/deploy-config`), de la que dependen el sitemap, las URLs canonicas,
+  `og:url` y las `hreflang`. `public/robots.txt` tiene la URL del sitemap
+  con el mismo dominio, mantener ambos sincronizados si el dominio cambia
+  (ej. al anadir un dominio propio).
 - `@astrojs/sitemap` genera `sitemap-index.xml` automaticamente a partir de
   las rutas construidas, sin configuracion adicional.
 - `BaseLayout.astro` acepta una prop opcional `description` (por defecto

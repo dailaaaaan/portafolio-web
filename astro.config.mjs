@@ -6,9 +6,9 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// TODO (chore/deploy-config): actualizar a la URL real una vez desplegado.
-// El sitemap, las URLs canonicas y los og:url dependen de este valor.
-const SITE_URL = 'https://portafolio-web.vercel.app';
+// URL real de produccion (Vercel). El sitemap, las URLs canonicas, las
+// hreflang y los og:url dependen de este valor.
+const SITE_URL = 'https://portafolio-web-nine-bay.vercel.app';
 
 // https://astro.build/config
 export default defineConfig({

@@ -1,5 +1,7 @@
 # Portafolio Web — Dylan Andreu Fiallos
 
+**Sitio en vivo: [portafolio-web-nine-bay.vercel.app](https://portafolio-web-nine-bay.vercel.app)**
+
 Portafolio personal interactivo con estética "Matrix terminal": landing page en
 negro/verde con lluvia de código de fondo, 5 secciones (CV, carta de presentación,
 experiencias, opiniones, contacto), multilenguaje (ES/CA/EN) y tema claro/oscuro.
@@ -45,27 +47,28 @@ de prueba), porque `preview` no pasa por el hook `predev`.
 El proyecto se construye en incrementos pequeños, cada uno como una rama fusionada
 mediante un Pull Request independiente. Estado actualizado a medida que se avanza:
 
-| #   | Rama                                  | Contenido                                                                                         | Estado       |
-| --- | ------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------ |
-| 1   | `chore/project-setup`                 | Scaffold Astro + TypeScript strict + Tailwind v4 + React + adapter Vercel + ESLint/Prettier       | ✅ Fusionado |
-| 2   | `docs/claude-md`                      | Limpieza de archivos accidentales + `CLAUDE.md`/`README.md` actualizados (añade sección Contacto) | ✅ Fusionado |
-| 3   | `feat/design-tokens`                  | Paleta Matrix, tipografías monoespaciadas, tokens claro/oscuro                                    | ✅ Fusionado |
-| 4   | `feat/theme-toggle`                   | Selector de tema persistente (vanilla TS, sin flash)                                              | ✅ Fusionado |
-| 5   | `feat/i18n-setup`                     | Routing i18n de Astro (ES/CA/EN), diccionarios, selector de idioma                                | ✅ Fusionado |
-| 6   | `feat/matrix-background`              | Canvas de lluvia de código, respeta `prefers-reduced-motion`                                      | ✅ Fusionado |
-| 7   | `feat/database-setup`                 | Drizzle + libSQL (local/Turso), esquema, migraciones, seed                                        | ✅ Fusionado |
-| 8   | `feat/navigation-terminal`            | Navegación estilo CLI + landing/hero + View Transitions                                           | ✅ Fusionado |
-| 9   | `feat/section-experience`             | Timeline de experiencia profesional                                                               | ✅ Fusionado |
-| 10  | `feat/section-cv`                     | Sección CV estructurada + descarga del PDF original                                               | ✅ Fusionado |
-| 11  | `feat/section-cover-letter`           | Sección carta de presentación                                                                     | ✅ Fusionado |
-| 12  | `feat/section-testimonials-guestbook` | Opiniones desde la BD + formulario (isla React) con validación/moderación                         | ✅ Fusionado |
-| 13  | `feat/section-contact`                | Sección Contacto: email, teléfono, LinkedIn, GitHub                                               | ✅ Fusionado |
-| 14  | `feat/page-transitions-polish`        | Glitch effects, microinteracciones, pulido de transiciones                                        | ✅ Fusionado |
-| 15  | `feat/accessibility-responsive`       | Accesibilidad + mobile-first                                                                      | ✅ Fusionado |
-| 16  | `fix/theme-persist-on-navigation`     | (No planificado) El tema claro se olvidaba al navegar entre secciones con `<ClientRouter />`      | ✅ Fusionado |
-| 17  | `feat/seo-metadata`                   | SEO, favicon, Open Graph, sitemap, robots.txt                                                     | ⏳ En curso  |
-| 18  | `fix/contrast-pass`                   | Sube el contraste entre texto/botones y el fondo en ambos temas (pedido explícito del usuario)    | ⏳ Pendiente |
-| 19  | `chore/deploy-config`                 | Config de despliegue (Vercel + Turso), variables de entorno                                       | ⏳ Pendiente |
+| #   | Rama                                    | Contenido                                                                                         | Estado       |
+| --- | --------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------ |
+| 1   | `chore/project-setup`                   | Scaffold Astro + TypeScript strict + Tailwind v4 + React + adapter Vercel + ESLint/Prettier       | ✅ Fusionado |
+| 2   | `docs/claude-md`                        | Limpieza de archivos accidentales + `CLAUDE.md`/`README.md` actualizados (añade sección Contacto) | ✅ Fusionado |
+| 3   | `feat/design-tokens`                    | Paleta Matrix, tipografías monoespaciadas, tokens claro/oscuro                                    | ✅ Fusionado |
+| 4   | `feat/theme-toggle`                     | Selector de tema persistente (vanilla TS, sin flash)                                              | ✅ Fusionado |
+| 5   | `feat/i18n-setup`                       | Routing i18n de Astro (ES/CA/EN), diccionarios, selector de idioma                                | ✅ Fusionado |
+| 6   | `feat/matrix-background`                | Canvas de lluvia de código, respeta `prefers-reduced-motion`                                      | ✅ Fusionado |
+| 7   | `feat/database-setup`                   | Drizzle + libSQL (local/Turso), esquema, migraciones, seed                                        | ✅ Fusionado |
+| 8   | `feat/navigation-terminal`              | Navegación estilo CLI + landing/hero + View Transitions                                           | ✅ Fusionado |
+| 9   | `feat/section-experience`               | Timeline de experiencia profesional                                                               | ✅ Fusionado |
+| 10  | `feat/section-cv`                       | Sección CV estructurada + descarga del PDF original                                               | ✅ Fusionado |
+| 11  | `feat/section-cover-letter`             | Sección carta de presentación                                                                     | ✅ Fusionado |
+| 12  | `feat/section-testimonials-guestbook`   | Opiniones desde la BD + formulario (isla React) con validación/moderación                         | ✅ Fusionado |
+| 13  | `feat/section-contact`                  | Sección Contacto: email, teléfono, LinkedIn, GitHub                                               | ✅ Fusionado |
+| 14  | `feat/page-transitions-polish`          | Glitch effects, microinteracciones, pulido de transiciones                                        | ✅ Fusionado |
+| 15  | `feat/accessibility-responsive`         | Accesibilidad + mobile-first                                                                      | ✅ Fusionado |
+| 16  | `fix/theme-persist-on-navigation`       | (No planificado) El tema claro se olvidaba al navegar entre secciones con `<ClientRouter />`      | ✅ Fusionado |
+| 17  | `feat/seo-metadata`                     | SEO, favicon, Open Graph, sitemap, robots.txt                                                     | ✅ Fusionado |
+| 18  | `fix/matrix-rain-persist-on-navigation` | (No planificado) La lluvia de código dejaba de animarse al navegar con `<ClientRouter />`         | ✅ Fusionado |
+| 19  | `fix/contrast-pass`                     | Sube el contraste entre texto/botones y el fondo en ambos temas (pedido explícito del usuario)    | ✅ Fusionado |
+| 20  | `chore/deploy-config`                   | Config de despliegue (Vercel + Turso), variables de entorno                                       | ⏳ En curso  |
 
 Cada PR incluye en su descripción: qué cambia, por qué, cómo probarlo localmente, y
 un checklist de `npm run check` / `lint` / `build` en verde.
