@@ -20,7 +20,7 @@ const locales = [
   {locales.map((locale) => (
     <a
       href={getRelativeLocaleUrl(locale.code, relPath)}
-      class={current === locale.code ? 'text-accent' : 'hover:text-accent'}
+      class={`transition-colors duration-150 ${current === locale.code ? 'text-accent' : 'hover:text-accent'}`}
       aria-current={current === locale.code ? 'page' : undefined}
     >
       {locale.label}

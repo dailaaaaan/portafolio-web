@@ -56,3 +56,57 @@
     @apply bg-bg text-fg font-mono antialiased;
   }
 }
+
+/*
+ * Transicion de pagina "glitch" (ver src/lib/transitions.ts), usada por
+ * <ClientRouter /> en vez del crossfade por defecto. Astro anima estas
+ * @keyframes sobre las capturas estaticas old/new de la View Transitions
+ * API nativa del navegador, referenciandolas por nombre.
+ */
+@keyframes glitch-out {
+  0% {
+    opacity: 1;
+    filter: none;
+    transform: translateX(0);
+  }
+  20% {
+    opacity: 0.85;
+    filter: brightness(1.6) saturate(0);
+    transform: translateX(-3px);
+  }
+  50% {
+    opacity: 0.5;
+    filter: brightness(2) saturate(0);
+    transform: translateX(3px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glitch-in {
+  0% {
+    opacity: 0;
+    filter: brightness(2) saturate(0);
+    transform: translateX(3px);
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateX(-3px);
+  }
+  70% {
+    opacity: 0.85;
+    filter: brightness(1.3);
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateX(0);
+  }
+}
+
+/* prefers-reduced-motion se respeta ya a nivel de Astro: si el visitante lo
+   tiene activado, el navegador omite las animaciones de View Transitions
+   automaticamente (es parte del propio estandar), sin necesidad de JS extra. */

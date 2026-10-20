@@ -10,7 +10,9 @@ const contact = getContact(Astro.currentLocale);
 
 <main class="min-h-screen px-4 py-16">
   <div class="mx-auto max-w-2xl">
-    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.contact}</h1>
+    <h1 data-scramble class="mb-6 text-center text-2xl font-bold text-fg">
+      ./{dict.nav.contact}
+    </h1>
 
     <TerminalWindow promptLabel="cat contacto.json">
       <p class="mb-5 text-sm text-muted">{contact.intro}</p>
@@ -25,14 +27,14 @@ const contact = getContact(Astro.currentLocale);
               data-copy-link={link.key === 'email' ? '' : undefined}
               data-copy-value={link.key === 'email' ? link.value : undefined}
               data-copy-label={link.key === 'email' ? dict.common.copied : undefined}
-              class="group flex items-baseline gap-2 rounded px-1 py-0.5 outline-none hover:bg-bg focus-visible:bg-bg"
+              class="group flex items-baseline gap-2 rounded px-1 py-0.5 outline-none transition duration-150 hover:bg-bg focus-visible:bg-bg active:scale-[0.98]"
             >
-              <span class="text-accent-dim group-hover:text-accent group-focus-visible:text-accent">
+              <span class="text-accent-dim transition-colors duration-150 group-hover:text-accent group-focus-visible:text-accent">
                 [{link.label}]
               </span>
               <span
                 data-copy-text={link.key === 'email' ? '' : undefined}
-                class="text-sm text-fg group-hover:text-accent group-focus-visible:text-accent"
+                class="text-sm text-fg transition-colors duration-150 group-hover:text-accent group-focus-visible:text-accent"
               >
                 {link.value}
               </span>

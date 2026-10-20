@@ -10,7 +10,9 @@ const cv = getCv(Astro.currentLocale);
 
 <main class="min-h-screen px-4 py-16">
   <div class="mx-auto max-w-2xl">
-    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.cv}</h1>
+    <h1 data-scramble class="mb-6 text-center text-2xl font-bold text-fg">
+      ./{dict.nav.cv}
+    </h1>
 
     <TerminalWindow promptLabel="cat cv.json">
       <section class="mb-6">
@@ -55,7 +57,7 @@ const cv = getCv(Astro.currentLocale);
       <a
         href={cv.downloadHref}
         download
-        class="inline-block rounded border border-accent-dim px-3 py-1.5 text-sm text-accent hover:bg-bg"
+        class="inline-block rounded border border-accent-dim px-3 py-1.5 text-sm text-accent transition duration-150 hover:bg-bg active:scale-[0.98]"
       >
         ↓ {cv.downloadLabel}
       </a>

@@ -11,7 +11,9 @@ const content = getExperience(Astro.currentLocale);
 
 <main class="min-h-screen px-4 py-16">
   <div class="mx-auto max-w-2xl">
-    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.experience}</h1>
+    <h1 data-scramble class="mb-6 text-center text-2xl font-bold text-fg">
+      ./{dict.nav.experience}
+    </h1>
 
     <TerminalWindow promptLabel="cat experiencia.log">
       <h2 class="mb-4 text-accent">{content.professionalHeading}</h2>

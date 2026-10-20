@@ -18,7 +18,7 @@ interface Props {
 type Status = 'idle' | 'submitting' | 'success' | 'error' | 'rate_limited';
 
 const inputClass =
-  'w-full rounded border border-accent-dim bg-bg px-2 py-1.5 text-fg outline-none focus:border-accent';
+  'w-full rounded border border-accent-dim bg-bg px-2 py-1.5 text-fg outline-none transition-colors duration-150 focus:border-accent';
 
 export default function GuestbookForm({ locale, labels }: Props) {
   const [name, setName] = useState('');
@@ -129,7 +129,7 @@ export default function GuestbookForm({ locale, labels }: Props) {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="border-accent-dim text-accent hover:bg-bg mt-1 inline-block rounded border px-3 py-1.5 disabled:opacity-50"
+        className="border-accent-dim text-accent hover:bg-bg mt-1 inline-block rounded border px-3 py-1.5 transition duration-150 active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100"
       >
         {labels.submitLabel}
       </button>
