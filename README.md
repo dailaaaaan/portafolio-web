@@ -16,18 +16,29 @@ Drizzle ORM + SQLite/Turso · i18n nativo de Astro · despliegue en Vercel.
 
 ```sh
 npm install
+npm run db:migrate
+npm run db:seed
 npm run dev
 ```
 
-| Comando                | Acción                                     |
-| ---------------------- | ------------------------------------------ |
-| `npm run dev`          | Servidor de desarrollo en `localhost:4321` |
-| `npm run build`        | Build de producción (`./dist/`)            |
-| `npm run preview`      | Previsualiza el build de producción        |
-| `npm run check`        | Type-check de `.astro`/`.ts`               |
-| `npm run lint`         | ESLint                                     |
-| `npm run format`       | Prettier (escribe)                         |
-| `npm run format:check` | Prettier (solo verifica)                   |
+`local.db` no viaja en git (está en `.gitignore`): hay que crearlo con
+`db:migrate` (+ `db:seed` para tener datos de prueba en la sección Opiniones)
+cada vez que se clona el repo o se cambia a una rama con cambios de esquema
+nuevos, o la app dará errores de SQLite al consultar la base de datos.
+
+| Comando                      | Acción                                     |
+| ---------------------------- | ------------------------------------------ |
+| `npm run dev`                | Servidor de desarrollo en `localhost:4321` |
+| `npm run build`              | Build de producción (`./dist/`)            |
+| `npm run preview`            | Previsualiza el build de producción        |
+| `npm run check`              | Type-check de `.astro`/`.ts`               |
+| `npm run lint`               | ESLint                                     |
+| `npm run format`             | Prettier (escribe)                         |
+| `npm run format:check`       | Prettier (solo verifica)                   |
+| `npm run db:generate`        | Genera una migración a partir del esquema  |
+| `npm run db:migrate`         | Aplica las migraciones a `local.db`        |
+| `npm run db:seed`            | Inserta los testimonios de prueba          |
+| `npm run db:approve -- <id>` | Aprueba una opinión del guestbook          |
 
 ## Plan de desarrollo (ramas y Pull Requests)
 

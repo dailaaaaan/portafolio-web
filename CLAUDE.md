@@ -185,28 +185,40 @@ Principios de diseño (para evitar estética "genérica de IA"):
 ## 7. Base de datos
 
 - Esquema en `src/lib/db/schema.ts` con Drizzle:
-  - tabla `testimonials`: `id`, `name`, `role`, `relationship` (ej. "compañero en
-    Wallbox"), `message`, `locale`, `approved` (boolean, default `false`),
-    `is_seed` (boolean, default `false`), `created_at`.
+  - tabla `testimonials`: `id`, `name`, `role` (nullable: solo relleno en los
+    testimonios semilla, el guestbook publico no lo pide), `relationship`
+    (ej. "compañero en Wallbox"), `message`, `locale`, `approved` (boolean,
+    default `false`), `is_seed` (boolean, default `false`), `created_at`
+    (**entero epoch unix**, no texto — un texto con formato distinto al de
+    SQLite compararia mal con `>`/`<`, ver tabla `rate_limits`).
+  - tabla `rate_limits`: `id`, `ip`, `created_at` (mismo motivo: entero epoch).
   - Los testimonios semilla (`is_seed = true`) se insertan con `approved = true`
-    mediante `npm run db:seed`.
+    mediante `npm run db:seed` (idempotente: borra los semilla previos antes
+    de reinsertar).
   - Las entradas nuevas del guestbook entran con `approved = false`.
 - Conexión (`src/lib/db/client.ts`): si existe `TURSO_DATABASE_URL` úsalo (más
-  `TURSO_AUTH_TOKEN`); si no, usa `file:local.db` para desarrollo local.
+  `TURSO_AUTH_TOKEN`); si no, usa `file:local.db` para desarrollo local. Usa
+  `process.env`, no `import.meta.env` (este archivo tambien lo importan los
+  scripts de Node en `src/lib/db/*.ts`, que no pasan por Vite).
 - Migraciones versionadas con `drizzle-kit`, carpeta `drizzle/` incluida en git
   (las migraciones sí se versionan; el archivo `local.db` no).
-- Endpoint `POST /api/testimonials` (Astro endpoint, `src/pages/api/`):
-  - Valida: campos requeridos, longitudes máximas (nombre ≤ 80, mensaje ≤ 500),
-    campo honeypot oculto que debe llegar vacío, rate limit básico por IP
-    (ventana simple en memoria o tabla `rate_limits`).
+- Endpoint `POST /api/testimonials` (`src/pages/api/testimonials.ts`, uno
+  solo, no se duplica por idioma — el locale viaja en el body):
+  - Valida: campos requeridos, longitudes máximas (nombre ≤ 80, relación ≤ 120,
+    mensaje ≤ 500), campo honeypot oculto (`website`) que debe llegar vacío
+    (si llega relleno, se responde 201 falso sin insertar nada, para no
+    delatar la deteccion al bot).
+  - Rate limit real por IP usando la tabla `rate_limits` (ventana de 60s,
+    funciona igual en funciones serverless sin estado que un contador en
+    memoria no soportaria).
   - Sanitiza/escapa cualquier input antes de guardar y, sobre todo, antes de
     renderizar (Astro escapa por defecto en `{}`, no usar `set:html` con
     contenido de usuario).
   - Devuelve 201 sin exponer si el mensaje quedó pendiente de aprobación con
     detalle interno (solo un mensaje genérico de "gracias, tu opinión será
     revisada").
-- Aprobación: script de CLI protegido (`npm run db:approve -- <id>`), no se
-  construye panel de administración web para esto.
+- Aprobación: `npm run db:approve -- <id>` (script en
+  `src/lib/db/approve.ts`), no se construye panel de administración web.
 
 ## 8. Accesibilidad
 
