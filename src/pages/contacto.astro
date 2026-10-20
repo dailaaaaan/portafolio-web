@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PlaceholderPage from './_shared/PlaceholderPage.astro';
+import ContactPage from './_shared/ContactPage.astro';
 import { getDictionary } from '../i18n';
 
 const dict = getDictionary(Astro.currentLocale);
 ---
 
 <BaseLayout title={`${dict.nav.contact} — ${dict.site.title}`}>
-  <PlaceholderPage section="contact" />
+  <ContactPage />
 </BaseLayout>

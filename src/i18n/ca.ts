@@ -24,9 +24,6 @@ export const ca: Dictionary = {
     bootLine3: 'Benvingut, Dylan_',
     menuLabel: 'Menú principal'
   },
-  placeholder: {
-    message: 'Secció en construcció_'
-  },
   common: {
     backHome: "← Tornar a l'inici"
   }
