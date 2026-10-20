@@ -25,5 +25,6 @@ export interface Dictionary {
   common: {
     backHome: string;
     copied: string;
+    skipToContent: string;
   };
 }

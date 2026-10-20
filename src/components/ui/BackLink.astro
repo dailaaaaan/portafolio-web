@@ -8,7 +8,7 @@ const dict = getDictionary(Astro.currentLocale);
 
 <a
   href={getRelativeLocaleUrl(locale, '')}
-  class="inline-block font-mono text-xs text-muted transition-colors duration-150 hover:text-accent"
+  class="inline-block rounded font-mono text-xs text-muted transition-colors duration-150 hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
 >
   {dict.common.backHome}
 </a>

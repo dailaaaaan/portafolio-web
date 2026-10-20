@@ -26,6 +26,7 @@ export const ca: Dictionary = {
   },
   common: {
     backHome: "← Tornar a l'inici",
-    copied: 'Copiat!'
+    copied: 'Copiat!',
+    skipToContent: 'Saltar al contingut'
   }
 };

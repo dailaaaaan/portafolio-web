@@ -129,7 +129,7 @@ export default function GuestbookForm({ locale, labels }: Props) {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="border-accent-dim text-accent hover:bg-bg mt-1 inline-block rounded border px-3 py-1.5 transition duration-150 active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100"
+        className="border-accent-dim text-accent hover:bg-bg focus-visible:outline-accent mt-1 inline-block rounded border px-3 py-1.5 transition duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100"
       >
         {labels.submitLabel}
       </button>

@@ -26,6 +26,7 @@ export const en: Dictionary = {
   },
   common: {
     backHome: '← Back to home',
-    copied: 'Copied!'
+    copied: 'Copied!',
+    skipToContent: 'Skip to content'
   }
 };
