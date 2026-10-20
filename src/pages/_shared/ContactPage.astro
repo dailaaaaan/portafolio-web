@@ -22,12 +22,18 @@ const contact = getContact(Astro.currentLocale);
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
+              data-copy-link={link.key === 'email' ? '' : undefined}
+              data-copy-value={link.key === 'email' ? link.value : undefined}
+              data-copy-label={link.key === 'email' ? dict.common.copied : undefined}
               class="group flex items-baseline gap-2 rounded px-1 py-0.5 outline-none hover:bg-bg focus-visible:bg-bg"
             >
               <span class="text-accent-dim group-hover:text-accent group-focus-visible:text-accent">
                 [{link.label}]
               </span>
-              <span class="text-sm text-fg group-hover:text-accent group-focus-visible:text-accent">
+              <span
+                data-copy-text={link.key === 'email' ? '' : undefined}
+                class="text-sm text-fg group-hover:text-accent group-focus-visible:text-accent"
+              >
                 {link.value}
               </span>
             </a>
@@ -41,3 +47,40 @@ const contact = getContact(Astro.currentLocale);
     </div>
   </div>
 </main>
+
+<script>
+  // El correo copia al portapapeles en vez de depender de un cliente de
+  // correo de escritorio (mailto: no hace nada si el visitante no tiene uno
+  // configurado, algo muy comun en Windows). Si el portapapeles no esta
+  // disponible, cae de vuelta al mailto: normal como respaldo.
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-copy-link]');
+
+  links.forEach((link) => {
+    const value = link.dataset.copyValue;
+    const copiedLabel = link.dataset.copyLabel;
+    const textEl = link.querySelector<HTMLElement>('[data-copy-text]');
+    if (!value || !copiedLabel || !textEl) return;
+
+    const originalText = textEl.textContent ?? value;
+    let resetTimeoutId: number | undefined;
+
+    link.addEventListener('click', (event) => {
+      if (!navigator.clipboard) return; // sin soporte: deja que mailto: funcione
+
+      event.preventDefault();
+
+      navigator.clipboard
+        .writeText(value)
+        .then(() => {
+          window.clearTimeout(resetTimeoutId);
+          textEl.textContent = copiedLabel;
+          resetTimeoutId = window.setTimeout(() => {
+            textEl.textContent = originalText;
+          }, 1800);
+        })
+        .catch(() => {
+          window.location.href = link.href;
+        });
+    });
+  });
+</script>

@@ -25,6 +25,7 @@ export const en: Dictionary = {
     menuLabel: 'Main menu'
   },
   common: {
-    backHome: '← Back to home'
+    backHome: '← Back to home',
+    copied: 'Copied!'
   }
 };

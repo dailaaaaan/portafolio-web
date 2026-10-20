@@ -25,6 +25,7 @@ export const es: Dictionary = {
     menuLabel: 'Menú principal'
   },
   common: {
-    backHome: '← Volver al inicio'
+    backHome: '← Volver al inicio',
+    copied: '¡Copiado!'
   }
 };

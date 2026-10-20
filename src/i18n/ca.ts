@@ -25,6 +25,7 @@ export const ca: Dictionary = {
     menuLabel: 'Menú principal'
   },
   common: {
-    backHome: "← Tornar a l'inici"
+    backHome: "← Tornar a l'inici",
+    copied: 'Copiat!'
   }
 };
