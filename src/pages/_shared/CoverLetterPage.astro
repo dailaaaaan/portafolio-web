@@ -1,0 +1,40 @@
+---
+import { getDictionary } from '../../i18n';
+import { getCoverLetter } from '../../content/cover-letter';
+import TerminalWindow from '../../components/ui/TerminalWindow.astro';
+import BackLink from '../../components/ui/BackLink.astro';
+
+const dict = getDictionary(Astro.currentLocale);
+const letter = getCoverLetter(Astro.currentLocale);
+---
+
+<main class="min-h-screen px-4 py-16">
+  <div class="mx-auto max-w-2xl">
+    <h1 class="mb-6 text-center text-2xl font-bold text-fg">./{dict.nav.coverLetter}</h1>
+
+    <TerminalWindow promptLabel="cat carta.txt">
+      <p class="mb-4 text-fg">{letter.greeting}</p>
+
+      <div class="flex flex-col gap-4">
+        {letter.paragraphs.map((paragraph) => (
+          <p class="text-sm text-muted">{paragraph}</p>
+        ))}
+      </div>
+
+      <p class="mt-6 text-fg">{letter.closing}</p>
+      <p class="text-fg">{letter.signature}</p>
+
+      <a
+        href={letter.downloadHref}
+        download
+        class="mt-6 inline-block rounded border border-accent-dim px-3 py-1.5 text-sm text-accent hover:bg-bg"
+      >
+        ↓ {letter.downloadLabel}
+      </a>
+    </TerminalWindow>
+
+    <div class="mt-6 text-center">
+      <BackLink />
+    </div>
+  </div>
+</main>
