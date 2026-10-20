@@ -1,4 +1,5 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import '../styles/global.css';
 import ClientRouter from 'astro/components/ClientRouter.astro';
 import ThemeToggle from '../components/ui/ThemeToggle.astro';
@@ -6,17 +7,34 @@ import LanguageSwitcher from '../components/ui/LanguageSwitcher.astro';
 import MatrixRain from '../components/ui/MatrixRain.astro';
 import ScrambleHeadings from '../components/ui/ScrambleHeadings.astro';
 import { glitchTransition } from '../lib/transitions.ts';
+import { getPathWithoutLocale } from '../lib/locale-path.ts';
 import { getDictionary } from '../i18n';
 
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
 const dict = getDictionary(Astro.currentLocale);
+const { title, description = dict.seo.home } = Astro.props;
+
+const locale: 'es' | 'ca' | 'en' =
+  Astro.currentLocale === 'ca' || Astro.currentLocale === 'en' ? Astro.currentLocale : 'es';
+const pathWithoutLocale = getPathWithoutLocale(Astro.url.pathname);
+// getRelativeLocaleUrl (usado abajo en hreflang y en el sitemap) siempre
+// genera rutas con barra final; normalizamos aqui tambien para que la URL
+// canonica y las hreflang coincidan exactamente sin importar si el
+// visitante entro con o sin la barra.
+const normalizedPathname = Astro.url.pathname.endsWith('/')
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`;
+const canonicalURL = new URL(normalizedPathname, Astro.site);
+
+const OG_LOCALES = { es: 'es_ES', ca: 'ca_ES', en: 'en_US' } as const;
+const HREFLANG_LOCALES = ['es', 'ca', 'en'] as const;
 ---
 
-<html lang={Astro.currentLocale ?? 'es'}>
+<html lang={locale}>
   <head>
     <script is:inline>
       (function () {
@@ -49,6 +67,35 @@ const dict = getDictionary(Astro.currentLocale);
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="dark light" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    {HREFLANG_LOCALES.map((loc) => (
+      <link
+        rel="alternate"
+        hreflang={loc}
+        href={new URL(getRelativeLocaleUrl(loc, pathWithoutLocale), Astro.site)}
+      />
+    ))}
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(getRelativeLocaleUrl('es', pathWithoutLocale), Astro.site)}
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={dict.site.title} />
+    <meta property="og:locale" content={OG_LOCALES[locale]} />
+    {HREFLANG_LOCALES.filter((loc) => loc !== locale).map((loc) => (
+      <meta property="og:locale:alternate" content={OG_LOCALES[loc]} />
+    ))}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <ClientRouter />
   </head>
   <body>

@@ -6,6 +6,6 @@ import { getDictionary } from '../i18n';
 const dict = getDictionary(Astro.currentLocale);
 ---
 
-<BaseLayout title={`${dict.nav.contact} — ${dict.site.title}`}>
+<BaseLayout title={`${dict.nav.contact} — ${dict.site.title}`} description={dict.seo.contact}>
   <ContactPage />
 </BaseLayout>

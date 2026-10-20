@@ -15,8 +15,27 @@ const menu = [
   { key: '4', slug: 'opiniones', label: dict.nav.testimonials },
   { key: '5', slug: 'contacto', label: dict.nav.contact }
 ];
+
+// Datos estructurados (schema.org) solo en la home, que representa a la
+// persona. Ayuda a buscadores/recruiters a identificar el perfil.
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Dylan Andreu Fiallos Sanchez',
+  url: new URL(getRelativeLocaleUrl(locale, ''), Astro.site).toString(),
+  jobTitle: 'Full Stack Developer',
+  email: 'mailto:dylanandreufiallos@gmail.com',
+  telephone: '+34617565576',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Barcelona',
+    addressCountry: 'ES'
+  },
+  sameAs: ['https://www.linkedin.com/in/dylan-fiallos-7476742b0/', 'https://github.com/dailaaaaan']
+};
 ---
 
+<script type="application/ld+json" is:inline set:html={JSON.stringify(personSchema)} />
 <main class="relative flex min-h-screen items-center justify-center px-4 py-16">
   <div class="w-full max-w-md">
     <h1 data-scramble class="mb-1 text-center text-2xl font-bold text-fg">

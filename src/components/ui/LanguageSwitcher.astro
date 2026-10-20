@@ -1,13 +1,9 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getPathWithoutLocale } from '../../lib/locale-path.ts';
 
 const current = Astro.currentLocale ?? 'es';
-
-// Astro.url.pathname incluye el prefijo de idioma actual (ej. "/ca/cv"); lo
-// quitamos para quedarnos con la ruta "neutra" antes de reconstruir el enlace
-// a cada idioma con getRelativeLocaleUrl.
-const pathWithoutLocale = Astro.url.pathname.replace(/^\/(ca|en)(\/|$)/, '/');
-const relPath = pathWithoutLocale === '/' ? '' : pathWithoutLocale.replace(/^\//, '');
+const relPath = getPathWithoutLocale(Astro.url.pathname);
 
 const locales = [
   { code: 'es', label: 'ES' },
