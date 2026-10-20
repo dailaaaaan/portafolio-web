@@ -262,8 +262,11 @@ Formato de commits: [Conventional Commits](https://www.conventionalcommits.org/)
 Ramas desde `main`, nombre `tipo/descripcion-corta`. Cada PR:
 
 1. Debe poder revisarse de forma aislada (no mezclar features no relacionadas).
-2. Lleva descripción con: qué cambia, por qué, cómo probarlo, checklist de
-   `npm run check` / `lint` / `build` en verde.
+2. Lleva descripción breve con dos secciones: "## Resumen" (que cambia y por
+   que) y "## Cambios" (lista de archivos/decisiones). Sin seccion de
+   "Como probar" ni checklist — el usuario pidio explicitamente no incluirlas
+   en la descripcion del PR (la verificacion de `check`/`lint`/`build` se
+   sigue haciendo siempre antes de entregar el PR, solo que no se listas ahi).
 3. Se fusiona a `main` (merge commit o squash, a criterio del orquestador) antes
    de empezar el siguiente PR del plan.
 
@@ -273,10 +276,41 @@ Ramas desde `main`, nombre `tipo/descripcion-corta`. Cada PR:
 cerrar). Usar siempre `--body-file` apuntando a un archivo (ej.
 `tmp-pr-body.md`, ya en `.gitignore`) en vez de `--body` con texto multilínea.
 
-Plan de PRs completo (mínimo 12, se definen 18): ver `README.md`, sección
+Plan de PRs completo (mínimo 12, se definen 19 — incluye un fix no
+planificado, `fix/theme-persist-on-navigation`): ver `README.md`, sección
 "Plan de desarrollo", que se mantiene sincronizada con el progreso real.
 
-## 10. Presupuesto de rendimiento
+## 10. SEO
+
+- `site` en `astro.config.mjs` apunta a un dominio placeholder
+  (`https://portafolio-web.vercel.app`) — **`chore/deploy-config` debe
+  actualizarlo** a la URL real una vez desplegado, porque de el dependen el
+  sitemap, las URLs canonicas, `og:url` y las `hreflang`. `public/robots.txt`
+  tiene la URL del sitemap hardcodeada con el mismo placeholder, actualizar
+  ahi tambien.
+- `@astrojs/sitemap` genera `sitemap-index.xml` automaticamente a partir de
+  las rutas construidas, sin configuracion adicional.
+- `BaseLayout.astro` acepta una prop opcional `description` (por defecto
+  `dict.seo.home`); cada ruta debe pasar `description={dict.seo.<seccion>}`
+  explicitamente. Genera automaticamente: meta description, canonical,
+  `hreflang` para los 3 idiomas + `x-default` (apuntando a ES), Open Graph
+  (`og:locale` + `og:locale:alternate` por cada otro idioma) y Twitter Card.
+  No hay `og:image` todavia (requeriria generar una imagen, fuera de alcance
+  de este PR).
+- `src/lib/locale-path.ts`: `getPathWithoutLocale()`, compartida entre
+  `LanguageSwitcher.astro` y `BaseLayout.astro` (antes duplicada).
+- Datos estructurados (`schema.org` `Person`) solo en la home
+  (`HomePage.astro`), via `<script type="application/ld+json" is:inline
+set:html={...}>` — este es el unico uso aceptable de `set:html` en el
+  proyecto, porque el JSON lo generamos nosotros mismos, no viene de un
+  usuario (la regla de la seccion 7 sobre no usar `set:html` es
+  especificamente sobre contenido de usuario).
+- Favicon (`public/favicon.svg`) sustituido por un icono propio (">_"
+  estilo terminal, verde sobre negro) en vez del logo generico de Astro del
+  scaffold inicial. El `favicon.ico` heredado del scaffold no se toco (bajo
+  impacto, fallback legacy).
+
+## 11. Presupuesto de rendimiento
 
 - JS enviado al cliente en la página de inicio: objetivo < 80 KB gzip (de ahí la
   preferencia por TypeScript vanilla sobre islas React salvo que haya estado

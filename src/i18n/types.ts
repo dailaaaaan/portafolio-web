@@ -27,4 +27,12 @@ export interface Dictionary {
     copied: string;
     skipToContent: string;
   };
+  seo: {
+    home: string;
+    cv: string;
+    coverLetter: string;
+    experience: string;
+    testimonials: string;
+    contact: string;
+  };
 }

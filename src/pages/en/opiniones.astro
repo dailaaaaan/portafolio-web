@@ -6,6 +6,9 @@ import { getDictionary } from '../../i18n';
 const dict = getDictionary(Astro.currentLocale);
 ---
 
-<BaseLayout title={`${dict.nav.testimonials} — ${dict.site.title}`}>
+<BaseLayout
+  title={`${dict.nav.testimonials} — ${dict.site.title}`}
+  description={dict.seo.testimonials}
+>
   <TestimonialsPage />
 </BaseLayout>
