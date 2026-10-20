@@ -13,8 +13,10 @@
   --color-surface: #0f140f;
   --color-fg: #d7ffd9;
   --color-accent: #39ff6a;
-  --color-accent-dim: #1f8f3d;
-  --color-muted: #6b8f74;
+  /* accent-dim y muted subidos en fix/contrast-pass: antes 4.7:1 y 5.4:1
+     contra --color-bg (aprobaban AA por poco); ahora ~7.1:1 y ~8.7:1. */
+  --color-accent-dim: #2fb356;
+  --color-muted: #8cb898;
   --color-danger: #ff5f56;
 
   --font-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
@@ -35,8 +37,10 @@
   --color-surface: #e4ebe3;
   --color-fg: #0a140a;
   --color-accent: #1a7a33;
-  --color-accent-dim: #4f9a63;
-  --color-muted: #5c6b5f;
+  /* antes 3.1:1 contra --color-bg (no pasaba AA); ahora ~7.3:1. muted antes
+     5.1:1, ahora ~8.5:1. Ver nota del tema oscuro arriba. */
+  --color-accent-dim: #155c30;
+  --color-muted: #3d4a40;
   --color-danger: #b91c1c;
 
   --color-bg-rgb: 242 245 241;

@@ -119,14 +119,23 @@ public/
 Paleta definida como tokens CSS en `src/styles/global.css` vía `@theme` de Tailwind
 v4 (no usar colores hardcodeados fuera de los tokens):
 
-| Token                | Valor (oscuro, por defecto) | Valor (claro) |
-| -------------------- | --------------------------- | ------------- |
-| `--color-bg`         | `#0a0e0a`                   | `#f2f5f1`     |
-| `--color-surface`    | `#0f140f`                   | `#e4ebe3`     |
-| `--color-fg`         | `#d7ffd9`                   | `#0a140a`     |
-| `--color-accent`     | `#39ff6a`                   | `#1a7a33`     |
-| `--color-accent-dim` | `#1f8f3d`                   | `#4f9a63`     |
-| `--color-muted`      | `#6b8f74`                   | `#5c6b5f`     |
+| Token                | Valor (oscuro, por defecto)     | Valor (claro)                   | Contraste vs `--color-bg` |
+| -------------------- | ------------------------------- | ------------------------------- | ------------------------- |
+| `--color-bg`         | `#0a0e0a`                       | `#f2f5f1`                       | —                         |
+| `--color-surface`    | `#0f140f`                       | `#e4ebe3`                       | —                         |
+| `--color-fg`         | `#d7ffd9`                       | `#0a140a`                       | ~19:1 / ~18:1             |
+| `--color-accent`     | `#39ff6a`                       | `#1a7a33`                       | ~14.7:1 / ~4.9:1          |
+| `--color-accent-dim` | `#2fb356` (`fix/contrast-pass`) | `#155c30` (`fix/contrast-pass`) | ~7.1:1 / ~7.3:1           |
+| `--color-muted`      | `#8cb898` (`fix/contrast-pass`) | `#3d4a40` (`fix/contrast-pass`) | ~8.7:1 / ~8.5:1           |
+
+Valores de `accent-dim`/`muted` anteriores a `fix/contrast-pass`:
+`#1f8f3d`/`#4f9a63` (accent-dim) y `#6b8f74`/`#5c6b5f` (muted) — pasaban
+AA (4.5:1) por poco en oscuro (4.7:1 y 5.4:1) y **el accent-dim de tema
+claro no llegaba a pasar AA** (3.1:1). Subidos para que todos los tokens de
+texto/borde interactivo ronden 7:1+ en ambos temas, segun lo pedido por el
+usuario (ver nota de accesibilidad mas abajo). El `--color-accent` del tema
+claro (4.9:1) pasa AA con margen razonable pero no AAA; no se toco porque no
+fue senalado como problema y es el color principal, no uno "dim".
 
 El tema claro/oscuro se controla con `data-theme="light"` en `<html>` (ver PR 4);
 por defecto es oscuro (coherente con la estética Matrix).
@@ -242,12 +251,13 @@ Principios de diseño (para evitar estética "genérica de IA"):
 - Contraste: no basta con cumplir el minimo AA (4.5:1) por los pelos — el
   usuario reporto explicitamente que, aun pasando ese minimo, texto secundario
   (`--color-muted`) y bordes de botones (`--color-accent-dim`) no se
-  distinguian bien del fondo. A partir de ahora, todo texto y todo elemento
-  interactivo (botones, bordes de componentes clicables) debe apuntar a un
-  contraste claramente por encima del minimo, no solo al limite. Pendiente
-  una pasada dedicada en `fix/contrast-pass` (ver README), pero cualquier PR
-  nuevo que añada texto o controles debe ya intentar cumplir esto desde el
-  principio en vez de dejarlo todo para esa pasada final.
+  distinguian bien del fondo. Todo texto y todo elemento interactivo (botones,
+  bordes de componentes clicables) debe apuntar a un contraste claramente por
+  encima del minimo, no solo al limite — en la practica, 7:1+ para texto
+  normal cuando sea razonable. `fix/contrast-pass` ya subio `--color-muted` y
+  `--color-accent-dim` a ~7-8.7:1 en ambos temas (ver tabla de la seccion 5
+  para los valores exactos y el calculo); cualquier color nuevo que se añada
+  despues debe calcularse con la misma formula WCAG, no a ojo.
 - Toda la navegación operable por teclado (incluida la navegación tipo
   terminal).
 - `prefers-reduced-motion: reduce` desactiva o reduce drásticamente: lluvia de
