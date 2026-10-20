@@ -16,15 +16,15 @@ Drizzle ORM + SQLite/Turso · i18n nativo de Astro · despliegue en Vercel.
 
 ```sh
 npm install
-npm run db:migrate
-npm run db:seed
 npm run dev
 ```
 
-`local.db` no viaja en git (está en `.gitignore`): hay que crearlo con
-`db:migrate` (+ `db:seed` para tener datos de prueba en la sección Opiniones)
-cada vez que se clona el repo o se cambia a una rama con cambios de esquema
-nuevos, o la app dará errores de SQLite al consultar la base de datos.
+`local.db` no viaja en git (está en `.gitignore`). `npm run dev` ejecuta
+automáticamente `db:migrate` + `db:seed` antes de arrancar (ver `predev` en
+`package.json`), así que no hace falta ningún paso manual. Si usas
+`npm run preview` (sirve el build ya compilado) necesitarás crear la base de
+datos tú mismo primero con `npm run db:migrate` (+ `db:seed` si quieres datos
+de prueba), porque `preview` no pasa por el hook `predev`.
 
 | Comando                      | Acción                                     |
 | ---------------------------- | ------------------------------------------ |
