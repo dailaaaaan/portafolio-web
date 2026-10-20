@@ -11,7 +11,7 @@ const dict = getDictionary(Astro.currentLocale);
   aria-pressed="false"
   data-label-dark={dict.theme.dark}
   data-label-light={dict.theme.light}
-  class="rounded border border-accent-dim px-2 py-1 font-mono text-xs text-muted transition duration-150 hover:text-accent active:scale-95"
+  class="rounded border border-accent-dim px-2 py-1 font-mono text-xs text-muted transition duration-150 hover:text-accent active:scale-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
 >
   <span data-theme-label>{dict.theme.dark}</span>
 </button>
