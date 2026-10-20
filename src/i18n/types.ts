@@ -22,10 +22,8 @@ export interface Dictionary {
     bootLine3: string;
     menuLabel: string;
   };
-  placeholder: {
-    message: string;
-  };
   common: {
     backHome: string;
+    copied: string;
   };
 }

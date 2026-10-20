@@ -6,6 +6,7 @@
     "node": ">=22.22.0"
   },
   "scripts": {
+    "predev": "npm run db:migrate && npm run db:seed",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

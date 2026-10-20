@@ -175,12 +175,14 @@ Principios de diseño (para evitar estética "genérica de IA"):
   evita multiplicar la complejidad de routing; si en el futuro se quiere URLs
   traducidas, revisar antes el impacto en todos los enlaces internos y en SEO
   (PR `feat/seo-metadata`).
-- **Páginas placeholder**: mientras una sección de contenido aún no tiene su
-  PR propio, su ruta existe igualmente (para que el menú no enlace a 404) y
-  renderiza `src/pages/_shared/PlaceholderPage.astro` con un mensaje de
-  "en construcción". Cuando llega el PR real de esa sección (ej.
-  `feat/section-cv`), se sustituye `<PlaceholderPage section="cv" />` por el
-  componente definitivo en los 3 archivos de ruta de esa sección.
+- **Páginas placeholder (historico)**: mientras una sección de contenido no
+  tenia su PR propio, su ruta existia igualmente (para que el menú no
+  enlazara a 404) y renderizaba `PlaceholderPage.astro` con un mensaje de
+  "en construcción". Las 5 secciones ya tienen su componente definitivo desde
+  el PR `feat/section-contact`, asi que `PlaceholderPage.astro` se elimino
+  por no tener ya ningun uso. Si en el futuro se añade una sexta sección,
+  reaplicar el mismo patrón (recrear un componente placeholder equivalente)
+  mientras se construye su PR.
 
 ## 7. Base de datos
 

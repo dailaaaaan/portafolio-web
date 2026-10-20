@@ -24,10 +24,8 @@ export const en: Dictionary = {
     bootLine3: 'Welcome, Dylan_',
     menuLabel: 'Main menu'
   },
-  placeholder: {
-    message: 'Section under construction_'
-  },
   common: {
-    backHome: '← Back to home'
+    backHome: '← Back to home',
+    copied: 'Copied!'
   }
 };
